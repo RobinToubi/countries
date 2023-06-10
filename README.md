@@ -3,6 +3,8 @@ Go package to retrieve country data by the ISO 3166-1 alpha-2 code.
 
 -----
 
+[![Build & Tests](https://github.com/RobinToubi/countries/actions/workflows/go.yml/badge.svg)](https://github.com/RobinToubi/countries/actions/workflows/go.yml)
+
 ## Install
 
 ```

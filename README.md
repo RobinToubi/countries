@@ -1,40 +1,48 @@
-# country-continent
-Get continent name from Country code, and Get Country code from continent name.
+# countries
+Go package to retrieve country data by the ISO 3166-1 alpha-2 code.
 
 -----
 
 ## Install
 
 ```
-go get github.com/ArsFy/countrycontinent@v1.2.0
+go get github.com/RobinToubi/countries
 ```
 
 ## Use
 
-#### Country code To Continent name
+#### Continent name by country code
 
 ```
-func CountryGetContinent(cc string) string
+func GetContinentByCountry(countryCode string) string, error
 ```
 
 #### Continent name To Country code list
 
 ```
-func ContinentGetCountry(ct string) []string
+func GetCountryCodesByContinent(continent string) []string
 ```
 
-## Example
+## Simple example
 
 ```go
 package main
 
 import (
-    "github.com/ArsFy/countrycontinent"
+	"fmt"
+	"github.com/RobinToubi/countries"
 )
 
-func main(){
-    countrycontinent.CountryGetContinent("HK")   // "Asia"
-    countrycontinent.ContinentGetCountry("Asia")
-    // [AF AM AZ BH BD BT BN KH CN CX CC CY GE HK IN ID IR IQ IL JP JO KZ KP KR KW KG LA LB MY MV MN MM NP OM PK PH QA RU SA SG LK SY TW TJ TH TR TM AE UZ VN YE]
+func main() {
+	// Instantiate the service
+	countryService := countries.InstanceCountry()
+	
+	// Retrieve a continent by the country code
+	continent, _ := countryService.GetContinentByCountry("HK")
+	fmt.Println(continent) // "Asia"
+	
+	// Retrieve country codes by a continent name
+	cCodes, _ := countryService.GetCountryCodesByContinent("Asia")
+	fmt.Println(cCodes) // [AF AM AZ BH BD BT BN KH CN CX CC CY GE HK IN ID IR IQ IL JP JO KZ KP KR KW KG LA LB MY MV MN MM NP OM PK PH QA RU SA SG LK SY TW TJ TH TR TM AE UZ VN YE]
 }
 ```

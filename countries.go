@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path/filepath"
 )
 
@@ -30,7 +31,12 @@ func (data *CountryData) readCountriesFile() *CountryData {
 	if len(data.countries) > 0 {
 		return data
 	}
-	filePath, _ := filepath.Abs("./countries.json")
+	path := os.Getenv("GOPATH") + "/src/github.com/RobinToubi/countries/countries.json"
+	filePath, err := filepath.Abs(path)
+	if err != nil {
+		fmt.Println(err)
+		return nil
+	}
 	file, err := ioutil.ReadFile(filePath)
 	if err != nil {
 		return nil

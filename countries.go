@@ -5,8 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"os"
-	"path/filepath"
 )
 
 type CountryData struct {
@@ -22,22 +20,16 @@ type Country struct {
 
 func InstanceCountry() *CountryData {
 	instance := &CountryData{}
-	instance = instance.readCountriesFile()
+	instance = instance.ReadCountriesFile()
 
 	return instance
 }
 
-func (data *CountryData) readCountriesFile() *CountryData {
+func (data *CountryData) ReadCountriesFile() *CountryData {
 	if len(data.countries) > 0 {
 		return data
 	}
-	path := os.Getenv("GOPATH") + "/src/github.com/RobinToubi/countries/countries.json"
-	filePath, err := filepath.Abs(path)
-	if err != nil {
-		fmt.Println(err)
-		return nil
-	}
-	file, err := ioutil.ReadFile(filePath)
+	file, err := ioutil.ReadFile("countries.json")
 	if err != nil {
 		return nil
 	}

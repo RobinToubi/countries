@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io/ioutil"
-	"path/filepath"
 )
 
 type CountryData struct {
@@ -21,17 +20,16 @@ type Country struct {
 
 func InstanceCountry() *CountryData {
 	instance := &CountryData{}
-	instance = instance.readCountriesFile()
+	instance = instance.ReadCountriesFile()
 
 	return instance
 }
 
-func (data *CountryData) readCountriesFile() *CountryData {
+func (data *CountryData) ReadCountriesFile() *CountryData {
 	if len(data.countries) > 0 {
 		return data
 	}
-	filePath, _ := filepath.Abs("./countries.json")
-	file, err := ioutil.ReadFile(filePath)
+	file, err := ioutil.ReadFile("countries.json")
 	if err != nil {
 		return nil
 	}

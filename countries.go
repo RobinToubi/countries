@@ -4,8 +4,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
-	"io/ioutil"
+	"embed"
 )
+
+//go:embed countries.json
+var f embed.FS
 
 type CountryData struct {
 	countries map[string]Country
@@ -20,16 +23,16 @@ type Country struct {
 
 func InstanceCountry() *CountryData {
 	instance := &CountryData{}
-	instance = instance.ReadCountriesFile()
+	instance = instance.readCountriesFile()
 
 	return instance
 }
 
-func (data *CountryData) ReadCountriesFile() *CountryData {
+func (data *CountryData) readCountriesFile() *CountryData {
 	if len(data.countries) > 0 {
 		return data
 	}
-	file, err := ioutil.ReadFile("countries.json")
+	file, err := f.ReadFile("countries.json")
 	if err != nil {
 		return nil
 	}
